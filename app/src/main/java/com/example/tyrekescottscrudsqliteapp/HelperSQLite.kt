@@ -89,5 +89,30 @@ class HelperSQLite(context:Context) : SQLiteOpenHelper(context, DATABASE_NAME, n
         return txtbkList
     }
 
+    fun upadteTextbook(txtbk: TextbookModel): Int{
+        val p0 = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID,txtbk.id)
+        contentValues.put(TXTBK_NAME,txtbk.name)
+        contentValues.put(AUTHOR,txtbk.author)
+        contentValues.put(COURSE,txtbk.course)
+        contentValues.put(ISBN,txtbk.isbn)
+
+        val success = p0.update(TBL_TXTBK, contentValues, "id=" + txtbk.id, null)
+        p0.close()
+        return success
+    }
+
+    fun deleteBookById(id: Int): Int {
+        val p0 = this.writableDatabase
+
+        val contentValues = ContentValues()
+        contentValues.put(ID, id)
+
+        val success = p0.delete(TBL_TXTBK, "id=$id", null)
+        p0.close()
+        return success
+    }
 
 }

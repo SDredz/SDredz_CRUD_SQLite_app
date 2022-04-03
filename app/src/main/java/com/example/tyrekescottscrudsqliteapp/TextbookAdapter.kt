@@ -9,10 +9,21 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TextbookAdapter : RecyclerView.Adapter<TextbookAdapter.TextbookViewHolder>() {
     private var txtbkList: ArrayList<TextbookModel> = ArrayList()
+    private var onClickItem: ((TextbookModel) -> Unit?)? = null
+    private var onClickDeleteItem: ((TextbookModel) -> Unit?)? = null
+
 
     fun addItems(items:ArrayList<TextbookModel>){
         this.txtbkList = items
         notifyDataSetChanged()
+    }
+
+    fun setOnClickItem(callback: (TextbookModel)->Unit){
+        this.onClickItem = callback
+    }
+
+    fun setOnClickDeleteItem(callback: (TextbookModel) -> Unit){
+        this.onClickDeleteItem = callback
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TextbookViewHolder(
@@ -22,7 +33,8 @@ class TextbookAdapter : RecyclerView.Adapter<TextbookAdapter.TextbookViewHolder>
     override fun onBindViewHolder(holder: TextbookViewHolder, position: Int) {
         val txtbk = txtbkList[position]
         holder.bindView(txtbk)
-
+        holder.itemView.setOnClickListener { onClickItem?.invoke(txtbk) }
+        holder.delRecBtn.setOnClickListener { onClickDeleteItem?.invoke(txtbk)}
     }
 
     override fun getItemCount(): Int {
@@ -35,7 +47,7 @@ class TextbookAdapter : RecyclerView.Adapter<TextbookAdapter.TextbookViewHolder>
         private var author = view.findViewById<TextView>(R.id.txtbkAuth)
         private var course = view.findViewById<TextView>(R.id.txtbkCrs)
         private var isbn = view.findViewById<TextView>(R.id.txtbkIsbn)
-        private var delRecBtn = view.findViewById<Button>(R.id.delRecBtn)
+        var delRecBtn = view.findViewById<Button>(R.id.delRecBtn)
 
         fun bindView(txtbk: TextbookModel){
             id.text = txtbk.id.toString()

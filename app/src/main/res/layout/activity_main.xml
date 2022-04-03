@@ -63,14 +63,21 @@
             android:id="@+id/addRecBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Record"
+            android:text="Add"
             android:textAllCaps="false" />
         <Button
             android:layout_marginStart="8dp"
             android:id="@+id/viewRecBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="View Record"
+            android:text="View Records"
+            android:textAllCaps="false" />
+        <Button
+            android:layout_marginStart="8dp"
+            android:id="@+id/updateRecBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
             android:textAllCaps="false" />
     </LinearLayout>
 
